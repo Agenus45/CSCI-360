@@ -47,13 +47,13 @@ void printwithkey(string text, string key){
     for (int i=0; i<text.length(); i++){
         char c= text[i];
         if (c >= 'a' && c <= 'z' && key[c-'a'] != '-') { // Check if character is a lowercase letter and has a corresponding substitution in the key
-            cout<< key [c-'a']; // Print the substituted letter
+            cout<< key [c-'a']; 
         }else{
-            cout<< c; // Print the original character if it is not a lowercase letter or has no substitution in the key
+            cout<< c; 
         }
         lineLength++; // Increment the line length
         if (c==' '&& lineLength > 60) { // Check if the character is a space and the line length exceeds 60
-            cout<< endl; // Print a newline character to start a new line
+            cout<< endl; 
             lineLength = 0; // Reset the line length
         }
     }
@@ -88,11 +88,11 @@ int main(){
         for(int i =0 ;i<26; i++)
         {
 
-            relativeFrequency[i] = (double)count[i] / totalLetters; // Calculate relative frequency
+            relativeFrequency[i] = (double)count[i] / totalLetters;
         }
 
-            int cipherOrder[26]; // Array to store the order of letters based on frequency
-            int englishOrder[26]; // Array to store the order of letters based on English frequency
+            int cipherOrder[26]; 
+            int englishOrder[26];
 
             rankedLetters( relativeFrequency, cipherOrder); // Rank letters based on ciphertext frequency
             rankedLetters(english, englishOrder); // Rank letters based on English frequency
@@ -112,9 +112,9 @@ int main(){
             }
 
 
-string words [300]; // Array to store words from the ciphertext
-int wordCount[300]; // Array to store the count of each word
-int numWords = 0; // Initialize variable to store the number of words
+string words [300]; 
+int wordCount[300]; 
+int numWords = 0; 
 
 string currentWord = ""; // Initialize variable to store the current word being processed
 
@@ -125,39 +125,38 @@ for (int i=0; i< ciphertext.length(); i++) {
     
     }else if (currentWord!="") { // Check if the current word is not empty
 
-        bool found = false; // hit a space, so the word is finished.
+        bool found = false; 
     
     for (int j =0; j<numWords; j++) {
         if (words[j] == currentWord) { // Check if the current word already exists in the array
-            wordCount[j]++; // Increment the count for the existing word
-            found = true; // Mark the word as found
-            break; // Exit the loop since the word is found
+            wordCount[j]++; 
+            break;
         }
     }
     
 
 
-    if (!found) { // If the word is not found in the array
+    if (!found) {
         words[numWords] = currentWord; // Add the new word to the array
-        wordCount[numWords] = 1; // Initialize the count for the new word
-        numWords++; // Increment the number of words
+        wordCount[numWords] = 1; 
+        numWords++; 
     }
     currentWord = ""; // start the next word
     }
 }
     cout << endl<< "repeated words: " << endl;
     for (int times= 20; times>=2    ; times--) { // Loop through the word counts in reverse order
-        for (int j = 0; j < numWords; j++) { // Loop through the words array
+        for (int j = 0; j < numWords; j++) { 
             if (wordCount[j] == times) { // Check if the word count matches the current count
-                cout << words[j] << " | Count: " << wordCount[j] << endl; // Print the word and its count
+                cout << words[j] << " | Count: " << wordCount[j] << endl; 
             }
         }
     }
     for(int length = 1; length <= 3 ; length++) { // Loop through word lengths from 1 to 3
         cout << endl << "Words of length " << length << ":" << endl;
-        for (int j = 0; j < numWords; j++) { // Loop through the words array
+        for (int j = 0; j < numWords; j++) { 
             if (words[j].length() == length) { // Check if the word length matches the current length
-                cout << words[j] << " | Count: " << wordCount[j] << endl; // Print the word and its count
+                cout << words[j] << " | Count: " << wordCount[j] << endl; 
             }
      
         }
@@ -168,15 +167,15 @@ for (int i=0; i< ciphertext.length(); i++) {
     for (int j = 0; j < numWords; j++) { // Loop through the words array
         for (int k= 0 ; k< words[j] .length()-1; k++) { // Loop through the characters of the word
             if (words[j][k] == words[j][k+1]) { // Check if the current character is the same as the next character
-                cout << words[j] << " | Count: " << wordCount[j] << endl; // Print the word and its count
-                break; // Exit the loop since a double letter is found
+                cout << words[j] << " | Count: " << wordCount[j] << endl; 
+                break; 
             }
         }
 
     }
-    string key(26, '-');                          // 26 dashes, one per letter a-z
+    string key(26, '-');                          
 
-    cout << endl << "====(stage 1)====" << endl;
+    cout << endl << "(stage 1)" << endl;
     addGuesses(key, "bpr", "THE");
     printwithkey(ciphertext, key);
 
@@ -185,7 +184,7 @@ for (int i=0; i< ciphertext.length(); i++) {
     addGuesses(testkey, "mk", "AO");
     printwithkey(ciphertext, testkey);
 
-    cout << endl << "====(stage 2)====" << endl;
+    cout << endl << "(stage 2)" << endl;
     addGuesses(key, "mkdw", "ANDI");
     printwithkey(ciphertext, key);
 
@@ -193,23 +192,23 @@ for (int i=0; i< ciphertext.length(); i++) {
     testkey = key;
     addGuesses(testkey, "w", "A");
 
-    cout << endl << "====(stage 3)====" << endl;
+    cout << endl << "(stage 3)" << endl;
     addGuesses(key, "jxiv", "OFSC");
     printwithkey(ciphertext, key);
 
-    cout << endl << "====(stage 4)====" << endl;
+    cout << endl << "(stage 4)" << endl;
     addGuesses(key, "uy", "RM");
     printwithkey(ciphertext, key);
 
-    cout << endl << "====(stage 5)====" << endl;
+    cout << endl << "(stage 5)" << endl;
     addGuesses(key, "lnt", "BUY");
     printwithkey(ciphertext, key);
 
-    cout << endl << "====(stage 6)====" << endl;
+    cout << endl << "(stage 6)" << endl;
     addGuesses(key, "shoeqc", "PLGVKW");
     printwithkey(ciphertext, key);
 
-    cout << endl << "====(stage 7)====" << endl;
+    cout << endl << "(stage 7)" << endl;
     addGuesses(key, "fga", "QZX");
     printwithkey(ciphertext, key);
 
